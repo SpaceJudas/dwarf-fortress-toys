@@ -49,7 +49,6 @@ module.exports.expandCategory = function (categoryTitle, callback) {
         }
         allNodes[nextItem.title].children = [];
         _.each(pages, function(p) {
-          p.parent = nextItem.title;
           allNodes[nextItem.title].children.push(p);
           queue.push(p);
         });
