@@ -1,0 +1,15 @@
+http://dwarffortresswiki.org/index.php/Category:DF2014:Workshops
+http://dwarffortresswiki.org/api.php?action=query&list=categorymembers&cmtitle=Category:DF2014:Workshops
+http://dwarffortresswiki.org/api.php?action=query&list=categorymembers&cmtitle=Category:DF2014:Workshops&cmcontinue
+
+
+http://dwarffortresswiki.org/api.php?action=parse&page=DF2014:Bowyer%27s_workshop&prop=wikitext
+
+http://dwarffortresswiki.org/api.php?action=parse&page=DF2014:Bowyer%27s_workshop&generatexml&format=json&prop=wikitext
+
+params = {
+        action: 'parse',
+        format: 'json',
+        prop: 'wikitext',
+        generatexml: 'true'
+    };
