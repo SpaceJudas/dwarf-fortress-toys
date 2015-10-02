@@ -3,13 +3,24 @@
 var dfwiki = require('./dfwiki');
 var _ = require('underscore');
 
-function transformCategoryToJson() {
-  dfwiki.expandCategory('Category:DF2014:Items', function (root, allNodes) {
-    _.map(allNodes, function(node) {
-      console.log(node);
-      return node;
-    })
+var getSankeyJson = function (allNodes) {
+  var links = [];
+  var nodes = _.map(_.values(allNodes), function(n) {
+    _.each(n.children, function(c) {
+      links.push({
+        source: n.pageid,
+        target: c.pageid,
+        value: 1
+      });
+    });
+    return {name: n.title, id: n.pageid};
   });
+  return ({
+    nodes: nodes,
+    links: links
+  })
 }
 
-transformCategoryToJson();
+dfwiki.expandCategory('Category:DF2014:Items', function (err, allNodes) {
+  console.log(getSankeyJson(allNodes));
+});
