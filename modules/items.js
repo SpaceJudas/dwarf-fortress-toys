@@ -4,23 +4,70 @@ var dfwiki = require('./dfwiki');
 var _ = require('underscore');
 
 var getSankeyJson = function (allNodes) {
+  var nodes = [];
   var links = [];
-  var nodes = _.map(_.values(allNodes), function(n) {
-    _.each(n.children, function(c) {
+  var nodePositions = {};
+
+  _.each(_.keys(allNodes), function (title, index) {
+    nodes.push({name: title});
+    nodePositions[title] = index;
+  });
+  console.log(allNodes);
+
+  _.each(allNodes, function (node, title) {
+    _.each(node.children, function(child) {
       links.push({
-        source: n.pageid,
-        target: c.pageid,
+        source: nodePositions[node.title],
+        target: nodePositions[child.title],
         value: 1
       });
-    });
-    return {name: n.title, id: n.pageid};
+    })
   });
+
   return ({
     nodes: nodes,
     links: links
+  });
+}
+
+//make a list of all nodes
+//check nodes for no duplicates
+//
+module.exports.ValidateData = function(categoryName) {
+  function find
+
+  module.exports.SankeyData(categoryName, function(err, sankeydata) {
+    sankeydata.nodes.forEach(function (node, index) {
+      if (seenIds[node.id]) {
+        console.error('Duplicate node at index ',index);
+        console.error('Seen: ',seenIds[node.id]);
+        console.error('This:', node);
+      }
+      seenIds[node.id] = node;
+    });
+    sankeydata.links.forEach(function (link, index) {
+      if(!seenIds[link.source]) {
+        console.log(link.source)
+        console.error('Link source id not found');
+        console.dir(link);
+      }
+      if(!seenIds[link.target]) {
+        console.log(link.target)
+        console.error('Link target id not found');
+        console.dir(link);
+      }
+    });
+    console.log('done!')
+    console.log(sankeydata);
   })
 }
 
-dfwiki.expandCategory('Category:DF2014:Items', function (err, allNodes) {
-  console.log(getSankeyJson(allNodes));
-});
+//'Category:DF2014:Items'
+//'Category:DF2014:Workshops'
+//callback is of the form fun (err, data)
+module.exports.SankeyData = function(categoryName, callback) {
+  console.log('expanding Category', categoryName)
+  dfwiki.expandCategory(categoryName, function (err, allNodes) {
+    callback(null, getSankeyJson(allNodes));
+  });
+}

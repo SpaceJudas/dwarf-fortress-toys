@@ -13,3 +13,10 @@ params = {
         prop: 'wikitext',
         generatexml: 'true'
     };
+
+
+tasks:
+ - display json data on items
+ - make item module easily accessible
+ - pick a d3 visualization for showing items
+ 

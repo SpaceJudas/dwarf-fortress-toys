@@ -18,7 +18,9 @@ module.exports.expandCategory = function (categoryTitle, callback) {
   var allNodes = {};
   var queue = [];
   //start the process
+  console.log(categoryTitle);
   dfwiki.api.call({action: 'query', titles: categoryTitle}, function (err, content) {
+    console.log(content);
     var root = _.values(content.pages)[0];
     queue.push(root);
     iterate();
