@@ -66,7 +66,6 @@ module.exports.ValidateData = function(categoryName) {
 //'Category:DF2014:Workshops'
 //callback is of the form fun (err, data)
 module.exports.SankeyData = function(categoryName, callback) {
-  console.log('expanding Category', categoryName)
   dfwiki.expandCategory(categoryName, function (err, allNodes) {
     callback(null, getSankeyJson(allNodes));
   });
