@@ -12,7 +12,7 @@ var getSankeyJson = function (allNodes) {
     nodes.push({name: title});
     nodePositions[title] = index;
   });
-  console.log(allNodes);
+  //console.log(allNodes);
 
   _.each(allNodes, function (node, title) {
     _.each(node.children, function(child) {
@@ -30,12 +30,7 @@ var getSankeyJson = function (allNodes) {
   });
 }
 
-//make a list of all nodes
-//check nodes for no duplicates
-//
 module.exports.ValidateData = function(categoryName) {
-  function find
-
   module.exports.SankeyData(categoryName, function(err, sankeydata) {
     sankeydata.nodes.forEach(function (node, index) {
       if (seenIds[node.id]) {
